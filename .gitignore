@@ -1,0 +1,15 @@
+# ignore any compiled c++ code
+*.out
+*.o
+*.exe
+# since we're using deb vscode and not flatpak, ignore the folder it makes
+/.vscode
+# ignore txt files used as sample input/output
+# *.txt
+# ignore me messing around
+temp.cpp
+# ignore qt things
+.qmake.stash
+# ignore makefile things
+moc*
+Makefile
