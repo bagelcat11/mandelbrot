@@ -8,8 +8,8 @@
 # *.txt
 # ignore me messing around
 temp.cpp
-# ignore qt things
-.qmake.stash
-# ignore makefile things
-moc*
-Makefile
+# ignore dependencies folder i made because i don't have time
+# to figure out why my include path hates me
+# /depends
+# ignore mandelbrot data file
+*.dat
