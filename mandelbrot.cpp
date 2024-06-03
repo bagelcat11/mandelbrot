@@ -27,6 +27,13 @@ int main()
 
 /****************************************************************************/
 
+void updatePlot(bool plot[X_WIDTH][Y_HEIGHT])
+{
+    //test
+}
+
+/****************************************************************************/
+
 void printPlot(const bool plot[X_WIDTH][Y_HEIGHT])
 {
     for (int row = 0; row < X_WIDTH; row++)
