@@ -27,8 +27,8 @@ void createFile()
     ofstream output("mandelPlot.dat");
 
     // MAIN
-    complex<double> topLeft(-2, 1.2);
-    complex<double> bottomRight(0.55, -1.2);
+    // complex<double> topLeft(-2, 1.2);
+    // complex<double> bottomRight(0.55, -1.2);
 
     // 5-BULB
     // complex<double> topLeft(-0.66, 0.7);
@@ -39,8 +39,8 @@ void createFile()
     // complex<double> bottomRight(-0.592, 0.658);
 
     // SEAHORSE VALLEY
-    // complex<double> topLeft(-0.8, 0.17);
-    // complex<double> bottomRight(-0.76, 0.13);
+    complex<double> topLeft(-0.8, 0.17);
+    complex<double> bottomRight(-0.76, 0.13);
 
     // ELEPHANT VALLEY
     // complex<double> topLeft(0.35, 0.115);
@@ -88,19 +88,21 @@ void createFile()
 void createBurningShipFile()
 {
     ofstream output("shipPlot.dat");
+    // CALCULATE NORMALLY, THEN REVERSE IN OUTPUT & GNUPLOT
 
     // MAIN SHIP (top 1/3 cut off for some reason?)
-    // complex<double> topLeft(-2, 1.5);
-    // complex<double> bottomRight(0.75, -0.75);
+    // complex<double> topLeft(-1.95, 0.75);
+    // complex<double> bottomRight(0.7, -1.6); // The y-coords will be swapped in Gnuplot
 
     // 2ND SHIP
-    complex<double> topLeft(-1.8, 0.09);
-    complex<double> bottomRight(-1.7, -0.015);
+    complex<double> topLeft(-1.8, 0.015);
+    complex<double> bottomRight(-1.7, -0.09);
 
     complex<double> c;
     complex<double> z;
     bool inSet;
     int currentIter;
+    int computations = 0;
 
     output << "#    real(X)     imag(Y)     iters" << endl;
 
@@ -124,6 +126,7 @@ void createBurningShipFile()
                     inSet = false;
 
                 currentIter++;
+                computations++;
             }
 
             // Make imaginary output negative to flip fractal for aesthetic purposes
@@ -132,4 +135,5 @@ void createBurningShipFile()
     }
 
     output.close();
+    cout << computations << " computations complete." << endl;
 }

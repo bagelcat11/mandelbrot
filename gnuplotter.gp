@@ -23,7 +23,7 @@ set terminal png size 4096, 4096
 # COLOR PLOTS
 set cblabel "Iterations"
 set view map
-set dgrid3d
+set dgrid3d #4096, 4096
 
 # set output "pics/mandelbrotColor.png" # MAIN
 # set xrange [-2:0.55]
@@ -50,8 +50,8 @@ set dgrid3d
 # set yrange [-0.03:0.03]
 
 # set output "pics/burningShipColor.png" # MAIN SHIP (top 1/3 cut off for some reason?)
-# set xrange [-2:0.75]
-# set yrange [-0.75:1.5]
+# set xrange [-1.95:0.7]
+# set yrange [-0.75:1.6]
 
 set output "pics/burningShipSatellite1.png" # 2ND SHIP
 set xrange [-1.8:-1.7]

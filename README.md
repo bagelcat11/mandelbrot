@@ -1,4 +1,4 @@
-# mandelbrot
+# the Mandelbrot fractal
 visualizing the Mandelbrot set. requires Gnuplot to run
 
 ### directions for now:
@@ -10,6 +10,8 @@ visualizing the Mandelbrot set. requires Gnuplot to run
 - create the data file: `./mandelbrot.out`
 
 - plot the data: `gnuplot -p gnuplotter.gp`
+
+most of the color images (4k resolution, 128 iterations) take around 400-800 million computations to generate! (can definitely be optimized, though)
 
 ### basic Mandelbrot plot
 
@@ -61,12 +63,12 @@ located in the valley of the main cardioid
 
 ### burning ship fractal
 
-made by taking the absolute values of the components of z before squaring. unsure why Gnuplot didn't want to plot the whole thing, will fix later
+made by taking the absolute values of the components of z before squaring. *fractal has been flipped vertically for aesthetic purposes; scale is inaccurate - the numbers on the y-axis should be the negative of what is displayed
 
 ![burningShipMain](pics/burningShipColor.png)
 
 ### burning ship satellite
 
-zoom in to the second-largest ship, found near the tail of the largest. if only we could actually see it
+zoom in to the second-largest ship, found near the tail of the largest. very pretty & one of my favorites
 
 ![burningShipSat](pics/burningShipSatellite1.png)
