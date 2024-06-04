@@ -10,7 +10,11 @@ set title "The Burning Ship Fractal"
 
 set xlabel "Real"
 set ylabel "Imaginary"
+set cblabel "Iterations"
 set terminal png size 4096, 4096
+
+# Uncomment one of the following blocks based on what plotting
+#   region you chose in mandelbrot.cpp
 
 # BASIC PLOT
 # set output "pics/mandelbrot.png"
@@ -21,9 +25,6 @@ set terminal png size 4096, 4096
 # splot 'mandelPlot.dat' with dots lc rgb "black" notitle
 
 # COLOR PLOTS
-set cblabel "Iterations"
-set view map
-set dgrid3d #4096, 4096
 
 # set output "pics/mandelbrotColor.png" # MAIN
 # set xrange [-2:0.55]
@@ -49,7 +50,7 @@ set dgrid3d #4096, 4096
 # set xrange [-1.79:-1.74]
 # set yrange [-0.03:0.03]
 
-# set output "pics/burningShipColor.png" # MAIN SHIP (top 1/3 cut off for some reason?)
+# set output "pics/burningShipColor.png" # MAIN SHIP
 # set xrange [-1.95:0.7]
 # set yrange [-0.75:1.6]
 

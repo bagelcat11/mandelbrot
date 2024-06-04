@@ -7,7 +7,7 @@ using namespace std;
 const int X_WIDTH = 4096;
 const int Y_HEIGHT = 4096;
 // const int ITERS = 64;    // 64 for zoomed out
-const int ITERS = 128;      // 128 for zoomed in
+const int MAX_ITERS = 128;      // 128 for zoomed in
 
 void createFile();
 void createBurningShipFile();
@@ -25,6 +25,9 @@ int main()
 void createFile()
 {
     ofstream output("mandelPlot.dat");
+
+    // To choose a location to render, leave ONE of the following
+    //      pairs of topLeft/bottomRight coordinates uncommented
 
     // MAIN
     // complex<double> topLeft(-2, 1.2);
@@ -52,14 +55,19 @@ void createFile()
 
     complex<double> c;
     complex<double> z;
+
+    double pxWidth = ((bottomRight.real() - topLeft.real()) / X_WIDTH);
+    double pxHeight = ((topLeft.imag() - bottomRight.imag()) / Y_HEIGHT);
+
     bool inSet;
     int currentIter;
+    int computations = 0;
 
     output << "#    real(X)     imag(Y)     iters" << endl;
 
-    for (double x = topLeft.real(); x < bottomRight.real(); x += ((bottomRight.real() - topLeft.real()) / X_WIDTH))
+    for (double x = topLeft.real(); x < bottomRight.real(); x += pxWidth)
     {
-        for (double y = topLeft.imag(); y > bottomRight.imag(); y -= ((topLeft.imag() - bottomRight.imag()) / Y_HEIGHT))
+        for (double y = topLeft.imag(); y > bottomRight.imag(); y -= pxHeight)
         {
             c.real(x);
             c.imag(y);
@@ -67,13 +75,14 @@ void createFile()
             inSet = true;
             currentIter = 1;
 
-            while (inSet && currentIter <= ITERS)
+            while (inSet && currentIter <= MAX_ITERS)
             {
                 z = (z * z) + c;
-                if (abs(z) > 2)
+                if (abs(z) > 2)     // Unoptimized escape algorithm
                     inSet = false;
 
                 currentIter++;
+                computations++;
             }
 
             output << c.real() << " " << c.imag() << " " << currentIter << endl;
@@ -81,6 +90,7 @@ void createFile()
     }
 
     output.close();
+    cout << computations << " computations complete." << endl;
 }
 
 /****************************************************************************/
@@ -90,9 +100,9 @@ void createBurningShipFile()
     ofstream output("shipPlot.dat");
     // CALCULATE NORMALLY, THEN REVERSE IN OUTPUT & GNUPLOT
 
-    // MAIN SHIP (top 1/3 cut off for some reason?)
+    // MAIN SHIP
     // complex<double> topLeft(-1.95, 0.75);
-    // complex<double> bottomRight(0.7, -1.6); // The y-coords will be swapped in Gnuplot
+    // complex<double> bottomRight(0.7, -1.6);      // The y-coords will be swapped in Gnuplot
 
     // 2ND SHIP
     complex<double> topLeft(-1.8, 0.015);
@@ -100,15 +110,19 @@ void createBurningShipFile()
 
     complex<double> c;
     complex<double> z;
+
+    double pxWidth = ((bottomRight.real() - topLeft.real()) / X_WIDTH);
+    double pxHeight = ((topLeft.imag() - bottomRight.imag()) / Y_HEIGHT);
+
     bool inSet;
     int currentIter;
     int computations = 0;
 
     output << "#    real(X)     imag(Y)     iters" << endl;
 
-    for (double x = topLeft.real(); x < bottomRight.real(); x += ((bottomRight.real() - topLeft.real()) / X_WIDTH))
+    for (double x = topLeft.real(); x < bottomRight.real(); x += pxWidth)
     {
-        for (double y = topLeft.imag(); y > bottomRight.imag(); y -= ((topLeft.imag() - bottomRight.imag()) / Y_HEIGHT))
+        for (double y = topLeft.imag(); y > bottomRight.imag(); y -= pxHeight)
         {
             c.real(x);
             c.imag(y);
@@ -116,7 +130,7 @@ void createBurningShipFile()
             inSet = true;
             currentIter = 1;
 
-            while (inSet && currentIter <= ITERS)
+            while (inSet && currentIter <= MAX_ITERS)
             {
                 z.real(abs(z.real()));
                 z.imag(abs(z.imag()));
