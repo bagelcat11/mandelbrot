@@ -4,108 +4,58 @@
 
 using namespace std;
 
-struct MandelPoint
-{
-    double realX;
-    double imY;
-    // complex<double> mycomplex(0.0, 0.0);
-    bool inSet;
-};
+const int X_WIDTH = 4096;
+const int Y_HEIGHT = 4096;
+// const int ITERS = 64;    // 64 for zoomed out
+const int ITERS = 128;      // 128 for zoomed in
 
-const int X_WIDTH = 1600;
-const int Y_HEIGHT = 1600;                            
-const int ITERS = 32;
-// MandelPoint topLeft = {-2, 2, false};
-// MandelPoint bottomRight = {2, -2, false};
-
-void updatePlot(MandelPoint [X_WIDTH][Y_HEIGHT]);
-void printPlot(const MandelPoint [X_WIDTH][Y_HEIGHT]);
-void createFile(/*const MandelPoint [X_WIDTH][Y_HEIGHT]*/);
+void createFile();
+void createBurningShipFile();
 
 int main()
 {
-    // MandelPoint *mandelPtr = nullptr;
-    // mandelPtr = new MandelPoint[X_WIDTH][Y_HEIGHT];
-
-    // MandelPoint mandelPlot[X_WIDTH][Y_HEIGHT];
-    // for (int row = 0; row < X_WIDTH; row++)
-    // {
-    //     for (int col = 0; col < Y_HEIGHT; col++)
-    //     {
-    //         mandelPlot[row][col].inSet = false;
-    //     }
-    // }
-
-    // updatePlot(mandelPlot);
-    // printPlot(mandelPlot);
-
-    // mandelPlot[1][2].inSet = true;
-    createFile(/*mandelPlot*/);
-
-    // Plotdata x(-1.0, 1.0), y = sin(x);
-    // plot(x, y);
+    // createFile();
+    createBurningShipFile();
 
     return 0;
 }
 
 /****************************************************************************/
 
-void updatePlot(MandelPoint mandelPlot[X_WIDTH][Y_HEIGHT])
-{
-    double realZ, imZ, realC, imC;
-    double scaledX, scaledY;
-    
-    for (int row = 0; row < X_WIDTH; row++)
-    {
-        for (int col = 0; col < Y_HEIGHT; col++)
-        {
-            //TODO: ourgh
-        }
-    }
-}
-
-/****************************************************************************/
-
-void printPlot(const MandelPoint mandelPlot[X_WIDTH][Y_HEIGHT])
-{
-    for (int row = 0; row < X_WIDTH; row++)
-    {
-        for (int col = 0; col < Y_HEIGHT; col++)
-        {
-            if (mandelPlot[row][col].inSet)
-                // in set
-                cout << "▓▓";
-            else
-                // outside set
-                cout << "░░";
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
-
-/****************************************************************************/
-
-void createFile(/*const MandelPoint mandelPlot[X_WIDTH][Y_HEIGHT]*/)
+void createFile()
 {
     ofstream output("mandelPlot.dat");
 
-    complex<double> topLeft(-2, 2);
-    complex<double> bottomRight(2, -2);
+    // MAIN
+    complex<double> topLeft(-2, 1.2);
+    complex<double> bottomRight(0.55, -1.2);
+
+    // 5-BULB
+    // complex<double> topLeft(-0.66, 0.7);
+    // complex<double> bottomRight(-0.4, 0.45);
+
+    // 5-BULB ZOOM
+    // complex<double> topLeft(-0.604, 0.668);
+    // complex<double> bottomRight(-0.592, 0.658);
+
+    // SEAHORSE VALLEY
+    // complex<double> topLeft(-0.8, 0.17);
+    // complex<double> bottomRight(-0.76, 0.13);
+
+    // ELEPHANT VALLEY
+    // complex<double> topLeft(0.35, 0.115);
+    // complex<double> bottomRight(0.39, 0.075);
+
+    // ANTENNA SATELLITE (really crunchy quality for some reason?)
+    // complex<double> topLeft(-1.79, 0.03);
+    // complex<double> bottomRight(-0.74, -0.03);
+
     complex<double> c;
     complex<double> z;
     bool inSet;
+    int currentIter;
 
-    output << "#    real(X)     imag(Y)" << endl;
-    // for (int row = 0; row < X_WIDTH; row++)
-    // {
-    //     for (int col = 0; col < Y_HEIGHT; col++)
-    //     {
-    //         if (mandelPlot[row][col].inSet)
-    //             output << mandelPlot[row][col].realX << " " << mandelPlot[row][col].imY << endl;
-    //     }
-    // }
-    //TODO: what format to feed to gnuplot?? do I even need c++
+    output << "#    real(X)     imag(Y)     iters" << endl;
 
     for (double x = topLeft.real(); x < bottomRight.real(); x += ((bottomRight.real() - topLeft.real()) / X_WIDTH))
     {
@@ -115,16 +65,69 @@ void createFile(/*const MandelPoint mandelPlot[X_WIDTH][Y_HEIGHT]*/)
             c.imag(y);
             z = 0;
             inSet = true;
+            currentIter = 1;
 
-            for (int i = 1; i <= ITERS; i++)
+            while (inSet && currentIter <= ITERS)
             {
                 z = (z * z) + c;
                 if (abs(z) > 2)
                     inSet = false;
+
+                currentIter++;
             }
 
-            if (inSet)
-                output << c.real() << " " << c.imag() << endl;
+            output << c.real() << " " << c.imag() << " " << currentIter << endl;
+        }
+    }
+
+    output.close();
+}
+
+/****************************************************************************/
+
+void createBurningShipFile()
+{
+    ofstream output("shipPlot.dat");
+
+    // MAIN SHIP (top 1/3 cut off for some reason?)
+    // complex<double> topLeft(-2, 1.5);
+    // complex<double> bottomRight(0.75, -0.75);
+
+    // 2ND SHIP
+    complex<double> topLeft(-1.8, 0.09);
+    complex<double> bottomRight(-1.7, -0.015);
+
+    complex<double> c;
+    complex<double> z;
+    bool inSet;
+    int currentIter;
+
+    output << "#    real(X)     imag(Y)     iters" << endl;
+
+    for (double x = topLeft.real(); x < bottomRight.real(); x += ((bottomRight.real() - topLeft.real()) / X_WIDTH))
+    {
+        for (double y = topLeft.imag(); y > bottomRight.imag(); y -= ((topLeft.imag() - bottomRight.imag()) / Y_HEIGHT))
+        {
+            c.real(x);
+            c.imag(y);
+            z = 0;
+            inSet = true;
+            currentIter = 1;
+
+            while (inSet && currentIter <= ITERS)
+            {
+                z.real(abs(z.real()));
+                z.imag(abs(z.imag()));
+                z = (z * z) + c;
+
+                if (abs(z) > 2)
+                    inSet = false;
+
+                currentIter++;
+            }
+
+            // Make imaginary output negative to flip fractal for aesthetic purposes
+            output << c.real() << " " << -c.imag() << " " << currentIter << endl;
         }
     }
 
