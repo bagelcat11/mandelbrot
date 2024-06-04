@@ -15,58 +15,58 @@ visualizing the Mandelbrot set. requires Gnuplot to run
 
 similar to the original 1978 dot-matrix printout, just with higher resolution
 
-![basicMandelbrot](mandelbrot.jpeg)
+![basicMandelbrot](pics/mandelbrot.jpeg)
 
 ### 2D Mandelbrot plot
 
 higher res than the previous
 
-![2dMandelbrot](mandelbrot.png)
+![2dMandelbrot](pics/mandelbrot.png)
 
 ### 3D Mandelbrot plot
 
 where height represents number of iterations
 
-![3dMandelbrot](mandelbrot3D.png)
+![3dMandelbrot](pics/mandelbrot3D.png)
 
 ### color Mandelbrot plot
 
 where color represents number of iterations
 
-![colorMandelbrot](mandelbrotColor.png)
+![colorMandelbrot](pics/mandelbrotColor.png)
 
 ### Mandelbrot 5-bulb
 
 zooming in to one of the bulbs on the main cardioid
 
-![mandelbrotZoom5Bulb](mandelbrot5Bulb.png)
+![mandelbrotZoom5Bulb](pics/mandelbrot5Bulb.png)
 
 ### Mandelbrot 5-bulb further zoom
 
 further zoom-in of previous; shows some self-similarity 
 
-![mandelbrotZoom5BulbSimilar](mandelbrot5BulbSimilar.png)
+![mandelbrotZoom5BulbSimilar](pics/mandelbrot5BulbSimilar.png)
 
 ### Mandelbrot seahorses
 
 located between the main cardioid and main bulb
 
-![mandelbrotSea](mandelbrotSeahorses.png)
+![mandelbrotSea](pics/mandelbrotSeahorses.png)
 
 ### Mandelbrot elephants
 
 located in the valley of the main cardioid
 
-![mandelbrotEleph](mandelbrotElephants.png)
+![mandelbrotEleph](pics/mandelbrotElephants.png)
 
 ### burning ship fractal
 
 made by taking the absolute values of the components of z before squaring. unsure why Gnuplot didn't want to plot the whole thing, will fix later
 
-![burningShipMain](burningShipColor.png)
+![burningShipMain](pics/burningShipColor.png)
 
 ### burning ship satellite
 
 zoom in to the second-largest ship, found near the tail of the largest. if only we could actually see it
 
-![burningShipSat](burningShipSatellite1.png)
+![burningShipSat](pics/burningShipSatellite1.png)
